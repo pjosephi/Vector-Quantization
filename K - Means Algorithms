@@ -1,0 +1,30 @@
+1.K-means (Lloyd): 
+  Refrence:  https://www.coursera.org/learn/genomic-data/lecture/3O9eh/the-lloyd-algorithm-for-k-means-clustering
+  Summary:
+        Make initial guesses for the means m1, m2, ..., mk 
+        Until there is no change in any mean 
+          Assign each data point to the cluster whose mean is the nearest. 
+          Calculate the mean of each cluster. 
+          For i from 1 to k
+             Replace mi with the mean of all examples for cluster i. 	
+          end_for 
+        end_until
+   
+2.Learning Vector Quantization 
+  Refrence: http://machinelearningmastery.com/learning-vector-quantization-for-machine-learning/
+  Summary:
+        > Generate Code book: The model representation is a fixed pool of codebook vectors, learned from the training data. 
+        They look like training instances, but the values of each attribute have been adapted based on the learning procedure.
+        > Incoming data --> update
+        > Predictions are made for a new instance (x) by searching through all codebook vectors for the K most similar 
+          instances and summarizing the output variable for those K instances. For classification this is the mode (or most 
+          common) class value.
+       
+       3.
+
+  
+
+
+
+        
+        
