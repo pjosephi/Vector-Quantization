@@ -18,9 +18,181 @@
         > Incoming data --> update
         > Predictions are made for a new instance (x) by searching through all codebook vectors for the K most similar 
           instances and summarizing the output variable for those K instances. For classification this is the mode (or most 
-          common) class value.
+          common) class value.    
+        > The learning algorithm starts with a pool of random codebook vectors. These could be randomly selected instances from 
+          the training data, or randomly generated vectors with the same scale as the training data. Codebook vectors have the 
+          same number of input attributes as the training data. They also have an output class variable.
+          The instances in the training dataset are processed one at a time. For a given training instance, the most similar 
+          codebook vector is selected from the pool.
+          If the codebook vector has the same output as the training instance, the codebook vector is moved closer to the training
+          instance. If it does not match, it is moved further away. The amount that the vector is moved is controlled by an 
+          algorithm parameter called the learning_rate.
+          For example, the input variable (x) of a codebook vector is moved closer to the training input value (t) by the amount 
+          in the learning_rate if the classes match as follows:
+          x = x + learning_rate * (t – x)
+          The opposite case of moving the input variables of a codebook variable away from a training instance is calculated as:
+          x = x – learning_rate * (t – x)
+
+3.K-Means ++
+  Refrence: https://web.stanford.edu/group/mmds/slides2012/s-bahmani.pdf [Arthur et al. ’07] 
+  Summary:
+        > Spreads out the centers
+          Step 1: Pick the first point randomly. 
+          Step i (1<i≤k): Choose a center by picking a point with probability proportional to the square of the distance of the point 
+          from its nearest (i-1) previously chosen centers. 
+          Theorem:
+          O(log k)-approximation to optimum, right after initialization 
+  
+4.K-means ||
+    Refrence: https://web.stanford.edu/group/mmds/slides2012/s-bahmani.pdf
+              https://www.youtube.com/watch?v=cigXAxV3XcY
+    Summary:
+        > we oversample by sampling each point independently with a larger probability 
+        
+        
+5.K – mini batch
+    Refrence: https://upcommons.upc.edu/bitstream/handle/2117/23414/R13-8.pdf
+    Summary:
+        >for each sample in the mini-batch, the assigned centroid is updated by taking the streaming average of the sample 
+          and all previous samples assigned to that centroid
+        > Its main idea is to use small random batches of examples of a fixed size so they can be stored in memory. 
+          Each iteration a new random sample from the dataset is obtained and used to update the clusters and this is repeated
+          until convergence (forgetfulness Parameter -  allowing the model to adapt to changes over time. The key trick is to 
+          add a new parameter that balances the relative importance of new data versus past history.) 
+          Each mini batch updates the clusters using a convex combination of the values of the prototypes and the examples, 
+          applying a learning rate that decreases with the number of iterations. This learning rate is the inverse of number
+          of examples assigned to a cluster during the process. As the number of iterations increases, the effect of new 
+          examples is reduced, so convergence can be detected when no changes in the clusters occur in several consecutive 
+          iterations. 
+
+          Given: k, mini-batch size b, iterations t, data set X 
+          Initialize each c ∈ C with an x picked randomly from X 
+          v←0
+          fori←1 totdo 
+            M ← b examples picked randomly from X 
+            for x∈M do 
+              d[x] ← f(C,x) 
+            end 
+            for x∈M do 
+              c ← d[x] 
+              v[c] ← v[c] + 1 
+              η←1 /v[c]
+              c ← (1-η)c+ηx 
+            end 
+          end 
+
+ 
+ 6.K-means sequential (Princeton)
+    Refrences: http://www.cs.princeton.edu/courses/archive/fall08/cos436/Duda/C/sk_means.htm
+    Summary: 
+        Make initial guesses for the means m1, m2, ..., mk
+        Set the counts n1, n2, ..., nk to zero 
+        Until interrupted 
+        Acquire the next example, x
+        If mi is closest to x
+        Increment ni
+        Replace mi by mi + (1/ni)*( x - mi)
+        end_if 
+        end_until
+        
+7.Online lyold
+    Summary:
+      initialize the k cluster centers z1, ..., zk in any way 
+      create counters n1, ..., nk and initialize them to zero 
+      loop
+      get new data point x 
+      determine the closest center zi to x 
+      update the number of points in that cluster: update the cluster center: zi ← zi + 1 (x − zi) ni 
+      end loop 
+      
+8.Online k-Means Clustering of Nonstationary Data- Angie King (MIT) 
+    Refrences: https://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-
+    2012/projects/MIT15_097S12_proj1.pdf
+    summary:
+            discounted updating rule zi ← zi + α(x − zi) for α ∈ (0, 1). 
+            initialize the k cluster centers z1, ..., zk in any way 
+            create counters  n1, ..., nk and initialize them to zero
+            loop  
+                get new data point x 
+                determine the closest center zi to x 
+                update the number of points in that cluster: ni ← ni + 1 
+                update the cluster center: zi ← zi + 1 (x − zi) ni 
+            end loop 
+9. K-means(wave cluster)-Google
+      Refrence : https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf
+      Summary:
+            You can do a very simple and effective online K-means with the following procedure:
+              - Initialize your k centroids randomly
+              - Take a point from your dataset 
+              - Assign the point to the closest centroid
+              - Move the centroid towards the point proportionally to the number of points in the cluster. The more points you
+                have in the cluster the less influence the new point has.
+           
+                You can use the following formula to update the centroid "i":
+
+                ci = ci + (1/ni) * (X-ci)
+
+                ci is the  centroid
+                ni is the number of points in the centroid
+                X is the point being processed
+
+                Notice that you need a size-k vector keeping the number of points assigned to each cluster.
+                For each point you only compute k-distances. And you have an acceptable clustering solution after a single 
+                iteration, more iterations of course improve the results.
+
+10.K-means (stochastic gradient descent) 
+
+     Refrence: http://cs.du.edu/~mitchell/mario_books/Introduction_to_Machine_Learning_-_2e_-_Ethem_Alpaydin.pdf
+               https://www.researchgate.net/publication/286778107_Stochastic_Gradient_Descent_Based_K-Means_Algorithm_on_Large_Scale_
+               Data_Clustering
+     Summary: 
+            We can obtain online k-means by doing stochastic gradient descent, considering the instances one by one, and doing
+            a small update at each step, not forgetting the effect of the previous updates.
+            update rule for each instance xt :  (given in the refrence paper)
+            
+            
+11.K means online (Yahoo)            
+    Refrences: http://www.cs.yale.edu/homes/el327/papers/OnlineKMeansAlenexEdoLiberty.pdf
+               https://arxiv.org/pdf/1412.5721.pdf
+
+    Summary: 
+      input: V, k
+            C ← first k + 1 distinct vectors in V; and n = k + 1 (For each of these yield itself as its center)
+            w∗ ← minv,v′∈C ∥v − v′∥2/2
+            r←1;q1 ←0;f1 =w∗/k
+            for v ∈ the remainder of V do 
+            n←n+1
+            with probability p = min(D2 (v, C)/fr , 1) 
+            C ← C ∪ {v}; qr ← qr + 1 if qr ≥ 3k(1 + log(n)) then 
+            r←r+1;qr ←0;fr ←2·fr−1 end if 
+             yield: c = arg minc∈C ∥v − c∥2 end for 
+
+12.streaming k-means in Apache Spark 1.2
+      Refrences: https://databricks.com/blog/2015/01/28/introducing-streaming-k-means-in-spark-1-2.html
+      
+     Summary:
+          >Combine the present with a partial reflection of the past.
+          >The streaming algorithm is identical to a well-known offline k-means algorithm, “mini-batch” k-means, which 
+          repeatedly trains on random subsets of the data to avoid loading the entire data set into memory. 
+          >a half-life, which describes the time it takes before past data contributes to only one half of the current model. 
+          >Users may want to think about their half-life in terms of either the number of batches (which have a fixed duration 
+          in time), or the number of points.
+          >Given a user-specified half life and time unit, the algorithm automatically calculates the appropriate forgetfulness 
+          behavior.
+
+
+Approximation Guarantees ( working on it ) 
+
+Lloyd’s Algorithm: Has no theoretical approximation guarantees.
+K means ++ : O(log k) 
+Mini Batch >SGD 
+Wave cluster - it is not much worse than k-means++ while operating in a strictly more constrained computational model. 
+
+
+      
+
        
-       3.
+
 
   
 
