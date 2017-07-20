@@ -1,4 +1,9 @@
-1.K-means (Lloyd): 
+
+1.Fast and Accurate Time Series Clustering 
+http://www.cs.columbia.edu/~gravano/Papers/2017/tods17.pdf
+
+
+2.K-means (Lloyd): 
   Refrence:  https://www.coursera.org/learn/genomic-data/lecture/3O9eh/the-lloyd-algorithm-for-k-means-clustering
   Summary:
         Make initial guesses for the means m1, m2, ..., mk 
@@ -10,7 +15,7 @@
           end_for 
         end_until
    
-2.Learning Vector Quantization 
+3.Learning Vector Quantization 
   Refrence: http://machinelearningmastery.com/learning-vector-quantization-for-machine-learning/
   Summary:
         > Generate Code book: The model representation is a fixed pool of codebook vectors, learned from the training data. 
@@ -33,7 +38,7 @@
           The opposite case of moving the input variables of a codebook variable away from a training instance is calculated as:
           x = x – learning_rate * (t – x)
 
-3.K-Means ++
+4.K-Means ++
   Refrence: https://web.stanford.edu/group/mmds/slides2012/s-bahmani.pdf [Arthur et al. ’07] 
   Summary:
         > Spreads out the centers
@@ -43,14 +48,14 @@
           Theorem:
           O(log k)-approximation to optimum, right after initialization 
   
-4.K-means ||
+5.K-means ||
     Refrence: https://web.stanford.edu/group/mmds/slides2012/s-bahmani.pdf
               https://www.youtube.com/watch?v=cigXAxV3XcY
     Summary:
         > we oversample by sampling each point independently with a larger probability 
         
         
-5.K – mini batch
+6.K – mini batch
     Refrence: https://upcommons.upc.edu/bitstream/handle/2117/23414/R13-8.pdf
     Summary:
         >for each sample in the mini-batch, the assigned centroid is updated by taking the streaming average of the sample 
@@ -82,7 +87,7 @@
           end 
 
  
- 6.K-means sequential (Princeton)
+ 7.K-means sequential (Princeton)
     Refrences: http://www.cs.princeton.edu/courses/archive/fall08/cos436/Duda/C/sk_means.htm
     Summary: 
         Make initial guesses for the means m1, m2, ..., mk
@@ -95,7 +100,7 @@
         end_if 
         end_until
         
-7.Online lyold
+8.Online lyold
     Summary:
       initialize the k cluster centers z1, ..., zk in any way 
       create counters n1, ..., nk and initialize them to zero 
@@ -105,7 +110,7 @@
       update the number of points in that cluster: update the cluster center: zi ← zi + 1 (x − zi) ni 
       end loop 
       
-8.Online k-Means Clustering of Nonstationary Data- Angie King (MIT) 
+9.Online k-Means Clustering of Nonstationary Data- Angie King (MIT) 
     Refrences: https://ocw.mit.edu/courses/sloan-school-of-management/15-097-prediction-machine-learning-and-statistics-spring-
     2012/projects/MIT15_097S12_proj1.pdf
     summary:
@@ -118,7 +123,7 @@
                 update the number of points in that cluster: ni ← ni + 1 
                 update the cluster center: zi ← zi + 1 (x − zi) ni 
             end loop 
-9. K-means(wave cluster)-Google
+10. K-means(wave cluster)-Google
       Refrence : https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf
       Summary:
             You can do a very simple and effective online K-means with the following procedure:
@@ -140,7 +145,7 @@
                 For each point you only compute k-distances. And you have an acceptable clustering solution after a single 
                 iteration, more iterations of course improve the results.
 
-10.K-means (stochastic gradient descent) 
+11.K-means (stochastic gradient descent) 
 
      Refrence: http://cs.du.edu/~mitchell/mario_books/Introduction_to_Machine_Learning_-_2e_-_Ethem_Alpaydin.pdf
                https://www.researchgate.net/publication/286778107_Stochastic_Gradient_Descent_Based_K-Means_Algorithm_on_Large_Scale_
@@ -151,7 +156,7 @@
             update rule for each instance xt :  (given in the refrence paper)
             
             
-11.K means online (Yahoo)            
+12.K means online (Yahoo)            
     Refrences: http://www.cs.yale.edu/homes/el327/papers/OnlineKMeansAlenexEdoLiberty.pdf
                https://arxiv.org/pdf/1412.5721.pdf
 
@@ -167,7 +172,7 @@
             r←r+1;qr ←0;fr ←2·fr−1 end if 
              yield: c = arg minc∈C ∥v − c∥2 end for 
 
-12.streaming k-means in Apache Spark 1.2
+13.streaming k-means in Apache Spark 1.2
       Refrences: https://databricks.com/blog/2015/01/28/introducing-streaming-k-means-in-spark-1-2.html
       
      Summary:
@@ -190,6 +195,13 @@ Wave cluster - it is not much worse than k-means++ while operating in a strictly
 
 
       
+Useful Links :
+
+1. Azure ML Cheat-Sheet : download.microsoft.com/.../microsoft-machine-learning-algorithm-cheat-sheet-v6.pdf
+2.count feautrization - https://msdn.microsoft.com/en-us/library/azure/dn913056.aspx
+3. Flowchart - https://creately.com/plans
+4.Time-series clustering – A decade review : http://ac.els-cdn.com/S0306437915000733/1-s2.0-S0306437915000733-main.pdf?_tid=95e93cd6-6c13-11e7-898b-00000aab0f6c&acdnat=1500421883_0b8200ecee5616be16e6bba7dd0b9545
+
 
        
 
