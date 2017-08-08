@@ -204,11 +204,9 @@ Useful Links :
 5. Vector Quantization and Clustering-https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-345-automatic-speech-recognition-spring-2003/lecture-notes/lecture6new.pdf
 
        
-
-
-  
 k shape ( time series clustering) python implementation- https://github.com/Mic92/kshape
 
-
+K-means 
+http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
         
         
