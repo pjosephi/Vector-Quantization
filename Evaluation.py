@@ -1,3 +1,14 @@
+"""
+You need to install the following Python packages:
+numpy
+pillow
+matplotlib
+pygraphviz
+Once these libraries are installed, you can use pip to install the remaining Python packages:
+$ pip install javabridge
+$ pip install python-weka-wrapper """
+
+
 
 import weka.core.jvm as jvm
 jvm.start(max_heap_size="12g")
