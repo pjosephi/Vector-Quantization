@@ -1,4 +1,5 @@
 """
+Mac OSX
 You need to install the following Python packages:
 numpy
 pillow
